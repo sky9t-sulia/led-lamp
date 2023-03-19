@@ -31,25 +31,32 @@ void IRInit()
 
 void handleIRController(uint16_t command)
 {
-    if (command == LAMP_ON) {
+    if (command == LAMP_ON)
+    {
         lampStatus(true);
         return;
     }
-    if (command == LAMP_OFF) {
+    
+    if (command == LAMP_OFF)
+    {
         lampStatus(false);
         return;
     }
 
-    if (command == BRIGHTNES_HIGH) {
-        if (lampBrightnes < 255) {
+    if (command == BRIGHTNES_HIGH)
+    {
+        if (lampBrightnes < 255)
+        {
             lampBrightnes += BRIGHTNES_STEP;
         }
         brightnesChange();
         return;
     }
 
-    if (command == BRIGHTNES_LOW) {
-        if (lampBrightnes > 0) {
+    if (command == BRIGHTNES_LOW)
+    {
+        if (lampBrightnes > 0)
+        {
             lampBrightnes -= BRIGHTNES_STEP;
             brightnesChange();
         }

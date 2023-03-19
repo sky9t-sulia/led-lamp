@@ -25,9 +25,6 @@ void handleControls()
         {
             lampEffect = 0;
         }
-
-        Serial.print("EFFECT:");
-        Serial.println(lampEffect);
     }
 
     if (btn.isHolded())

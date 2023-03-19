@@ -9,12 +9,44 @@ mGradient<4> flameGradient = {
 
 uint32_t flameNoiseOffset = 0;
 
+void switchEffect()
+{
+    uint32_t color = mRed;
+    if (lampEnabled) {
+        color = mPurple;
+    }
+
+    strip.clear();
+    strip.show();
+
+    byte row = 7;
+    for (int i = 0; i < NUMLEDS - 1; i += row)
+    {
+        strip.clear();
+        strip.fill(i, i + row, color);
+        strip.show();
+        
+        if (i == 0) {
+            delay(300);
+        }
+        delay(30);
+    }
+
+    for (int i = NUMLEDS - 1; i > 0; i -= row)
+    {
+        strip.clear();
+        strip.fill(i - row, i, color);
+        strip.show();
+        delay(30);
+    }
+}
+
 void rainbow()
 {
     static byte counter = 0;
     for (int i = 0; i < NUMLEDS; i++)
     {
-        strip.set(i, mWheel8(counter + i * 128 / NUMLEDS));
+        strip.set(i, mWheel8(counter + i * 255 / NUMLEDS));
     }
     counter += 3;
 }
@@ -60,7 +92,7 @@ void handleEffects()
     case 4:
     {
         strip.fill(mPurple);
-        break;   
+        break;
     }
     case 5:
     {

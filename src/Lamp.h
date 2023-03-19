@@ -18,30 +18,39 @@ static byte lampBrightnes = 210;
 static byte lampEffect = 0;
 microLED<NUMLEDS, LED_PIN, MLED_NO_CLOCK, LED_WS2812, ORDER_GRB, CLI_AVER> strip;
 
-void brightnesChange() {
+void brightnesChange()
+{
     strip.setBrightness(lampBrightnes);
-}
-
-void lampStatus(bool enabled) {
-    if (!enabled) {
-        lampEnabled = false;
-        strip.clear();
-        strip.show();
-        
-        Serial.println("Lamp OFF");
-        return;
-    }
-
-    lampEnabled = true;
-    Serial.println("Lamp ON");
 }
 
 #include "Helper.h"
 #include "Effects.h"
+
+void lampStatus(bool enabled)
+{
+    if (lampEnabled == enabled) return;
+
+    if (!enabled)
+    {
+        lampEnabled = false;
+        switchEffect();
+
+        strip.clear();
+        strip.show();
+        return;
+    }
+
+    lampEnabled = true;
+    switchEffect();
+    strip.clear();
+    strip.show();
+}
+
 #include "Controls.h"
 #include "IR.h"
 
-void lampInit() {
+void lampInit()
+{
     strip.setBrightness(lampBrightnes);
 }
 
